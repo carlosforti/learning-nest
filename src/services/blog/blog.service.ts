@@ -16,26 +16,31 @@ export class BlogService {
 	}
 
 	public create(blog: Blog): string {
-		if (blog.id === undefined) {
-			blog.id = uuid();
+		try {
+			if (blog.id === undefined) {
+				blog.id = uuid();
+			}
+			this.blogs.push(blog);
+			return blog.id;
+		} catch {
+			return "";
 		}
-		this.blogs.push(blog);
-		return blog.id;
 	}
 
-	public update(id: string, blog: Blog) {
+	public update(id: string, blog: Blog): boolean {
 		if (id !== blog.id) {
-			return;
+			return false;
 		}
 
 		// Aqui vou fazer o processo mais simples, remover o item do array e adicionar novamente
 		this.delete(id);
 		this.create(blog);
+		return true;
 	}
 
-	public delete(id: string){
+	public delete(id: string) {
 		const blog = this.get(id);
-        const pos = this.blogs.indexOf(blog);
-        this.blogs.splice(pos, 1);
+		const pos = this.blogs.indexOf(blog);
+		this.blogs.splice(pos, 1);
 	}
 }

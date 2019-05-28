@@ -1,6 +1,7 @@
-import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Put, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { Blog } from '../models/blog';
 import { BlogService } from 'src/services/blog/blog.service';
+import { throwError } from 'rxjs';
 
 @Controller('blogs')
 export class BlogsController {
@@ -11,7 +12,12 @@ export class BlogsController {
     @Post()
     // @Body significa que vou pegar o objeto no corpo da requisição
     public create(@Body() blog: Blog): string {
-        return this.blogService.create(blog);
+        var result = this.blogService.create(blog);
+
+        if (result === "")
+            throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
+
+        return result;
     }
 
     // Retorno todos os blogs
