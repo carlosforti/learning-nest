@@ -1,7 +1,6 @@
 import { Controller, Get, Param, Post, Body, Put, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { Blog } from '../models/blog';
-import { BlogService } from 'src/services/blog/blog.service';
-import { throwError } from 'rxjs';
+import { BlogService } from '../services/blog/blog.service';
 
 @Controller('blogs')
 export class BlogsController {
