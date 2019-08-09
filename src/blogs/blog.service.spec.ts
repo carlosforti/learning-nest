@@ -15,4 +15,8 @@ describe('BlogService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  it ('should get all', () => {
+    expect(service.getAll()).toBeDefined();
+  });
 });

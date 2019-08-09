@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Post, Body, Put, Delete, HttpException, HttpStatus } from '@nestjs/common';
-import { Blog } from '../models/blog';
-import { BlogService } from '../services/blog/blog.service';
+import { Blog } from './blog';
+import { BlogService } from './blog.service';
 
 @Controller('blogs')
 export class BlogsController {
@@ -11,10 +11,11 @@ export class BlogsController {
     @Post()
     // @Body significa que vou pegar o objeto no corpo da requisição
     public create(@Body() blog: Blog): string {
-        var result = this.blogService.create(blog);
+        const result = this.blogService.create(blog);
 
-        if (result === "")
-            throw new HttpException("Not Found", HttpStatus.NOT_FOUND);
+        if (result === '') {
+            throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
+        }
 
         return result;
     }
@@ -23,6 +24,7 @@ export class BlogsController {
     @Get()
     public getAll(): Blog[] {
         return this.blogService.getAll();
+        // throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
 
     // Retorno o blog com o nome especificado

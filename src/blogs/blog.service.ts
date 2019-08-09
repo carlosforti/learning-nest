@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Blog } from 'src/models/blog';
 import uuid = require('uuid');
+import { Blog } from './blog';
 
 @Injectable()
 export class BlogService {
