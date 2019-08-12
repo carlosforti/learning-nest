@@ -53,7 +53,7 @@
     "ts-node": "^8.3.0",
     "tsconfig-paths": "3.8.0",
     "tslint": "5.16.0",
-    "typescript": "3.4.3",
+    "typescript": "3.5.3",
     "wait-on": "^3.2.0",
     "ava": "^0.16.0",
     "co-exec": "^1.0",
