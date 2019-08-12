@@ -1,0 +1,22 @@
+{
+   "type": "postgres",
+   "host": "localhost",
+   "port": 5432,
+   "username": "postgres",
+   "password": "ThisIS(!)Secure",
+   "database": "blog",
+   "synchronize": true,
+   "logging": false,
+   "entities": [
+      "src/**/*.entity{.ts,.js}"
+   ],
+   "migrations": [
+      "src/migration/**/*.ts"
+   ],
+   "subscribers": [
+      "src/subscriber/**/*.ts"
+   ],
+   "cli": {
+      "migrationsDir": "src/migration"
+   }
+}

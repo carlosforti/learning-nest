@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: 'ThisIS(!)Secure'
+    ports:
+      - '5432:5432'
+    volumes:
+      - /var/lib/postgresql/data 
+    networks:
+      - pgnetwork
+      
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'carlosforti@carlosforti.com.br'
+      PGADMIN_DEFAULT_PASSWORD: 'ThisIS(!)Secure'
+    ports:
+      - '9001:80'
+    depends_on:
+      - postgres
+    networks:
+      - pgnetwork
+
+networks: 
+  pgnetwork:
+    driver: bridge
