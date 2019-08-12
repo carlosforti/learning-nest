@@ -1,46 +1,57 @@
 import { Injectable } from '@nestjs/common';
 import uuid = require('uuid');
-import { Blog } from './blog';
+import { IBlog } from './blog.interface';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository, AdvancedConsoleLogger } from 'typeorm';
+import { Blog } from './blog.entity';
 
 @Injectable()
 export class BlogService {
-	private blogs: Blog[] = [];
+    private blogs: IBlog[] = [];
 
-	public getAll(): Blog[] {
-		return this.blogs;
-	}
+    constructor(@InjectRepository(Blog)
+    private readonly blogRepository: Repository<Blog>) {
+    }
 
-	public get(id: string): Blog {
-		const blog = this.blogs.find(p => p.id === id);
-		return blog;
-	}
+    public getAll(): Promise<Blog[]> {
+        return this.blogRepository.find();
+    }
 
-	public create(blog: Blog): string {
-		try {
-			if (blog.id === undefined) {
-				blog.id = uuid();
-			}
-			this.blogs.push(blog);
-			return blog.id;
-		} catch {
-			return "";
-		}
-	}
+    public async get(id: string): Promise<Blog> {
+        return this.blogRepository.findOne(id);
+    }
 
-	public update(id: string, blog: Blog): boolean {
-		if (id !== blog.id) {
-			return false;
-		}
+    public async create(blog: Blog): Promise<string> {
+        if (blog.id === undefined) {
+            blog.id = uuid();
+        }
+        return await this.blogRepository.insert(blog)
+            .then(f => {
+                console.log('Id Gerado: ', f.identifiers[0]);
+                return f.identifiers[0] as any as string;
+            }, err => {
+                console.log(err);
+                return '';
+            });
+    }
 
-		// Aqui vou fazer o processo mais simples, remover o item do array e adicionar novamente
-		this.delete(id);
-		this.create(blog);
-		return true;
-	}
+    public async update(id: string, blog: Blog): Promise<boolean> {
+        if (id !== blog.id) {
+            return false;
+        }
 
-	public delete(id: string) {
-		const blog = this.get(id);
-		const pos = this.blogs.indexOf(blog);
-		this.blogs.splice(pos, 1);
-	}
+        await this.blogRepository.update(id, blog);
+        return true;
+    }
+
+    public async delete(id: string): Promise<boolean> {
+        return await this.blogRepository.delete(id)
+            .then(f => {
+                console.log(f);
+                return true;
+            }, err => {
+                console.log(err);
+                return false;
+            });
+    }
 }
