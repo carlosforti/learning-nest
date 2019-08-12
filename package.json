@@ -13,12 +13,14 @@
     "prestart:prod": "rimraf dist && npm run build",
     "start:prod": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
-    "test": "jest",
+    "test": "nyc ./node_modules/.bin/ava -v",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ormconfig.json"
+    "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ormconfig.json",
+    "report-coverage": "nyc report --reporter=lcov > coverage.lcov && codecov",
+    "standard": "standard index.js"
   },
   "dependencies": {
     "@nestjs/common": "^6.5.3",
@@ -31,6 +33,7 @@
     "reflect-metadata": "^0.1.12",
     "rimraf": "^2.6.2",
     "rxjs": "^6.3.3",
+    "travis": "^0.1.1",
     "typeorm": "^0.2.18",
     "uuid": "^3.3.2"
   },
@@ -39,19 +42,25 @@
     "@types/express": "^4.17.0",
     "@types/jest": "^23.3.13",
     "@types/node": "^12.7.1",
-    "@types/supertest": "^2.0.7",
+    "@types/supertest": "^2.0.8",
     "@types/uuid": "^3.4.5",
     "concurrently": "^4.1.0",
     "jest": "^24.8.0",
     "nodemon": "^1.18.9",
-    "prettier": "^1.15.3",
     "supertest": "^4.0.2",
+    "supertest": "^3.4.1",
     "ts-jest": "24.0.2",
     "ts-node": "^8.3.0",
     "tsconfig-paths": "3.8.0",
     "tslint": "5.16.0",
     "typescript": "3.4.3",
-    "wait-on": "^3.2.0"
+    "wait-on": "^3.2.0",
+    "ava": "^0.16.0",
+    "co-exec": "^1.0",
+    "codecov": "^1.0.1",
+    "ghooks": "^1.2.4",
+    "nyc": "^10.0.0",
+    "standard": "^8.4.0"
   },
   "jest": {
     "moduleFileExtensions": [
@@ -69,5 +78,10 @@
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
+  },
+  "config": {
+    "ghooks": {
+      "pre-commit": "npm run standard"
+    }
   }
 }
