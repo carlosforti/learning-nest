@@ -1,14 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import uuid = require('uuid');
-import { IBlog } from './blog.interface';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, AdvancedConsoleLogger } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Blog } from './blog.entity';
 
 @Injectable()
 export class BlogsService {
-    private blogs: IBlog[] = [];
-
     constructor(@InjectRepository(Blog)
     private readonly blogRepository: Repository<Blog>) {
     }
@@ -22,9 +18,6 @@ export class BlogsService {
     }
 
     public async create(blog: Blog): Promise<string> {
-        if (blog.id === undefined) {
-            blog.id = uuid();
-        }
         return await this.blogRepository.insert(blog)
             .then(f => {
                 console.log('Id Gerado: ', f.identifiers[0]);
