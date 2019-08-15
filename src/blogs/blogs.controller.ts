@@ -1,11 +1,11 @@
 import { Controller, Get, Param, Post, Body, Put, Delete, HttpException, HttpStatus } from '@nestjs/common';
 import { IBlog } from './blog.interface';
-import { BlogService } from './blog.service';
+import { BlogsService } from './blog.service';
 import { Blog } from './blog.entity';
 
 @Controller('blogs')
 export class BlogsController {
-    constructor(private readonly blogService: BlogService) {
+    constructor(private readonly blogService: BlogsService) {
     }
 
     // Adiciono um novo blog

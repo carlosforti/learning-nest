@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { BlogModule } from './blogs/blog.module';
+import { BlogsModule } from './blogs/blogs.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(),
-    BlogModule]
+    BlogsModule]
 })
 export class AppModule { }
