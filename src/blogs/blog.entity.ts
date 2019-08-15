@@ -4,7 +4,7 @@ import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCol
 @Entity('blog')
 export class Blog implements IBlog {
      @PrimaryGeneratedColumn()
-     public id: string;
+     public id: number;
 
      @Column({length: 100})
      public name: string;

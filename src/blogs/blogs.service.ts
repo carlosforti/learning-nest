@@ -6,39 +6,37 @@ import { Blog } from './blog.entity';
 @Injectable()
 export class BlogsService {
     constructor(@InjectRepository(Blog)
-    private readonly blogRepository: Repository<Blog>) {
+    private readonly repository: Repository<Blog>) {
     }
 
-    public getAll(): Promise<Blog[]> {
-        return this.blogRepository.find();
+    public async getAll(): Promise<Blog[]> {
+        return this.repository.find();
     }
 
-    public async get(id: string): Promise<Blog> {
-        return this.blogRepository.findOne(id);
+    public async get(id: number): Promise<Blog> {
+        return this.repository.findOne(id);
     }
 
-    public async create(blog: Blog): Promise<string> {
-        return await this.blogRepository.insert(blog)
+    public async create(blog: Blog): Promise<number> {
+        return await this.repository.insert(blog)
             .then(f => {
-                console.log('Id Gerado: ', f.identifiers[0]);
-                return f.identifiers[0] as any as string;
+                return f.identifiers[0] as any as number;
             }, err => {
-                console.log(err);
-                return '';
+                return 0;
             });
     }
 
-    public async update(id: string, blog: Blog): Promise<boolean> {
+    public async update(id: number, blog: Blog): Promise<boolean> {
         if (id !== blog.id) {
             return false;
         }
 
-        await this.blogRepository.update(id, blog);
+        await this.repository.update(id, blog);
         return true;
     }
 
-    public async delete(id: string): Promise<boolean> {
-        return await this.blogRepository.delete(id)
+    public async delete(id: number): Promise<boolean> {
+        return await this.repository.delete(id)
             .then(f => {
                 console.log(f);
                 return true;

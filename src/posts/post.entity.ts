@@ -3,7 +3,7 @@ import { PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } fr
 
 export class Post implements IPost {
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Column({ length: 200 })
     title: string;
