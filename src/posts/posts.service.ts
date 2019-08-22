@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Post } from './post.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { IPost } from './post.interface';
+import { Post } from './post.entity';
 
 @Injectable()
 export class PostsService {
@@ -10,15 +11,15 @@ export class PostsService {
         private readonly repository: Repository<Post>) {
     }
 
-    public async getAll(): Promise<Post[]> {
+    public async getAll(): Promise<IPost[]> {
         return await this.repository.find();
     }
 
-    public async get(id: number): Promise<Post> {
+    public async get(id: number): Promise<IPost> {
         return await this.repository.findOne(id);
     }
 
-    public async create(entity: Post): Promise<number> {
+    public async create(entity: IPost): Promise<number> {
         return await this.repository.insert(entity)
             .then(f => {
                 return f.identifiers[0] as any as number;
@@ -26,7 +27,7 @@ export class PostsService {
                 return 0;
             });
     }
-    public async update(id: number, entity: Post): Promise<boolean> {
+    public async update(id: number, entity: IPost): Promise<boolean> {
         if (id !== entity.id) {
             return false;
         }

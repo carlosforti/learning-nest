@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Blog } from './blog.entity';
+import { IBlog } from './blog.interface';
 
 @Injectable()
 export class BlogsService {
@@ -9,16 +10,16 @@ export class BlogsService {
     private readonly repository: Repository<Blog>) {
     }
 
-    public async getAll(): Promise<Blog[]> {
+    public async getAll(): Promise<IBlog[]> {
         return this.repository.find();
     }
 
-    public async get(id: number): Promise<Blog> {
+    public async get(id: number): Promise<IBlog> {
         return this.repository.findOne(id);
     }
 
-    public async create(blog: Blog): Promise<number> {
-        return await this.repository.insert(blog)
+    public async create(entity: IBlog): Promise<number> {
+        return await this.repository.insert(entity)
             .then(f => {
                 return f.identifiers[0] as any as number;
             }, err => {
@@ -26,12 +27,12 @@ export class BlogsService {
             });
     }
 
-    public async update(id: number, blog: Blog): Promise<boolean> {
-        if (id !== blog.id) {
+    public async update(id: number, entity: IBlog): Promise<boolean> {
+        if (id !== entity.id) {
             return false;
         }
 
-        await this.repository.update(id, blog);
+        await this.repository.update(id, entity);
         return true;
     }
 

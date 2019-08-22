@@ -1,25 +1,34 @@
 import { IPost } from './post.interface';
-import { PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Entity, ManyToOne, OneToMany } from 'typeorm';
+import { Blog } from '../blogs/blog.entity';
+import { Comment } from '../comments/comment.entity';
 
+@Entity('post')
 export class Post implements IPost {
     @PrimaryGeneratedColumn()
-    id: number;
+    public id: number;
+
+    @ManyToOne(() => Blog, (blog) => blog.posts)
+    public blog: Blog;
 
     @Column({ length: 200 })
-    title: string;
+    public title: string;
 
     @Column()
-    date: Date;
+    public date: Date;
 
     @Column()
-    content: string;
+    public content: string;
 
     @Column()
-    isDraft: boolean;
+    public isDraft: boolean;
 
     @CreateDateColumn()
-    createdAt: Date;
+    public createdAt: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date;
+    public updatedAt: Date;
+
+    @OneToMany(() => Comment, (comment) => comment.post)
+    public comments: Comment[];
 }
