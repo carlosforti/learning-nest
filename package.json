@@ -31,7 +31,7 @@
     "reflect-metadata": "^0.1.12",
     "rimraf": "^3.0.0",
     "rxjs": "^6.5.3",
-    "typeorm": "^0.2.19"
+    "typeorm": "^0.2.21"
   },
   "devDependencies": {
     "@nestjs/testing": "^6.7.1",
