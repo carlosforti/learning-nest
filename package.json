@@ -34,7 +34,7 @@
     "typeorm": "^0.2.19"
   },
   "devDependencies": {
-    "@nestjs/testing": "^6.7.1",
+    "@nestjs/testing": "^6.10.7",
     "@types/express": "^4.17.1",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.5",
