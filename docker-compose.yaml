@@ -4,19 +4,19 @@ services:
   postgres:
     image: postgres
     environment:
-      POSTGRES_PASSWORD: 'ThisIS(!)Secure'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD}'
     ports:
       - '5432:5432'
     volumes:
-      - /var/lib/postgresql/data 
+      - /opt/postgresql/learningnest:/var/lib/postgresql/data 
     networks:
       - pgnetwork
       
   pgadmin:
     image: dpage/pgadmin4
     environment:
-      PGADMIN_DEFAULT_EMAIL: 'carlosforti@carlosforti.com.br'
-      PGADMIN_DEFAULT_PASSWORD: 'ThisIS(!)Secure'
+      PGADMIN_DEFAULT_EMAIL: '${PGADMIN_EMAIL}'
+      PGADMIN_DEFAULT_PASSWORD: '${PGADMIN_PASSWORD}'
     ports:
       - '9001:80'
     depends_on:
