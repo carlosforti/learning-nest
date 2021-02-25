@@ -30,7 +30,7 @@
     "postgresql": "0.0.1",
     "reflect-metadata": "^0.1.12",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.6.3",
+    "rxjs": "^6.6.6",
     "typeorm": "^0.2.31"
   },
   "devDependencies": {
