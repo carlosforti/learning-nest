@@ -1,8 +1,9 @@
 pull_request_rules:
-  - name: Automatic merge
+  - name: Automatic merge when CI passes
     conditions:
       - base=main
+      - status-success=Node CI
       #- "#approved-reviews-by>=1"
     actions:
       merge:
-        strict: true
+        method: merge
