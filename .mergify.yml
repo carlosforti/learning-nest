@@ -2,7 +2,7 @@ pull_request_rules:
   - name: Automatic merge when CI passes
     conditions:
       - base=main
-      - status-success=node-build-test
+      - status-success=build-and-test
       #- "#approved-reviews-by>=1"
     actions:
       merge:
