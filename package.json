@@ -21,7 +21,7 @@
     "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ormconfig.json"
   },
   "dependencies": {
-    "@nestjs/common": "^6.11.11",
+    "@nestjs/common": "^7.5.5",
     "@nestjs/core": "^7.0.0",
     "@nestjs/platform-express": "^7.6.18",
     "@nestjs/typeorm": "^7.1.5",
