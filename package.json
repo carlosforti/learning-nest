@@ -46,7 +46,7 @@
     "prettier": "^2.6.2",
     "supertest": "^6.1.6",
     "ts-jest": "25.5.1",
-    "ts-node": "^10.4.0",
+    "ts-node": "^10.8.2",
     "tsconfig-paths": "3.12.0",
     "tslint": "^6.1.3",
     "typescript": "^3.9.10",
